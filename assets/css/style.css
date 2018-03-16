@@ -1,0 +1,50 @@
+/*
+font-family: 'Rammetto One', cursive;
+font-family: 'Shrikhand', cursive;
+font-family: 'Permanent Marker', cursive;
+*/
+
+* {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+body {
+    /* background-color: greenyellow; */
+     background-image: url("https://cdn.wallpapersafari.com/66/75/GwNg5q.jpg");
+     background-size: auto;
+ }
+
+ #header-title {
+    font-family: 'Rammetto One', cursive;
+    font-size: 4rem;
+    color: gray;
+ }
+
+ h3 {
+    font-family: 'Permanent Marker', cursive;
+    color: white;
+    line-height: 1.5;
+    font-size: 25px;
+    padding: 10px;
+ }
+
+ .newDiv {
+     width: 190px;
+     height: 190px;
+     background-color: white;
+     margin: 10px;
+ }
+
+ img {
+     width: 110px;
+     height: 110px;
+     border: solid 1px green;
+ }
+
+ p {
+    font-family: 'Permanent Marker', cursive;
+    size: 8px;
+ }
+
+ 

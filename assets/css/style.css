@@ -11,14 +11,15 @@ font-family: 'Permanent Marker', cursive;
 
 body {
     /* background-color: greenyellow; */
-     background-image: url("https://cdn.wallpapersafari.com/66/75/GwNg5q.jpg");
-     background-size: auto;
+     background-image: url("http://bozhuwallpaper.com/img/star-wars-sith-wallpapers-full-hd-As-Wallpaper-HD.jpg");
  }
 
  #header-title {
     font-family: 'Rammetto One', cursive;
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: gray;
+    padding: 0px 10px;
+    margin-bottom: 20px;
  }
 
  h3 {
@@ -29,12 +30,30 @@ body {
     padding: 10px;
  }
 
- .newDiv {
-     width: 190px;
-     height: 190px;
+ .newBtn {
+     width: 195px;
+     height: 195px;
      background-color: white;
-     margin: 10px;
+     border: solid 1px green;
+     margin: 5px;
  }
+
+ .availDefenders {
+     background: red;
+     border: solid 1px gray;
+ }
+
+ .pickedDefender {
+     background: black;
+     color: white;
+ }
+
+ .newBtn:hover {
+    opacity: 0.5;
+    width: 195px;
+    height: 195px;
+}
+ 
 
  img {
      width: 110px;
@@ -42,9 +61,48 @@ body {
      border: solid 1px green;
  }
 
+ /* #your-player, #defenders {display: none;} */
+
  p {
     font-family: 'Permanent Marker', cursive;
     size: 8px;
+ }
+
+ .pTitle {
+     margin-bottom: 10px;
+     font-family: 'Permanent Marker', cursive;
+     color: white;
+     font-size: 20px;
+ }
+
+ .pContent {
+    margin-bottom: 10px;
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
+
+ #player-opponent {
+     margin-bottom: 50px;
+ }
+
+ #attackId {
+     margin-top: 50px;
+     margin-bottom: 50px;
+ }
+
+ /* #player-opponent, #attackId, #your-defenders {
+     display: none;
+ } */
+
+ .restart {
+     display: none;
+ }
+
+ .lost {
+     font-family: 'Rammetto One', cursive;
+     color: white;
  }
 
  

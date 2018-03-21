@@ -1,26 +1,7 @@
-/*
-1. display all characters from fightersArr
-2. pick a player (assign pickaPlayer to variable vplayer)
-    a. push fightersArr to availablePlayers array except choosenplayer
-    b. display all available players as defenders
-3. pick a defender from availablePlayers
-    a. push availablePlayers to availableDefenders except choosen defender
-    b. display all available defenders
-    c. repeat until no more defender
-4. Click attack button
-    a. display player health-points and defender health-point
-    b. deduct player and defender health-points
-    c. determine wins and looses
-5. restart game button
-
-
-*/
-
-
 //Create an object to hold game info.
 var fightersObj = {
     availableDefenders: [],
-    vdefender: null ,
+    vdefender: null,
     vplayer: null,
     playerPower: 0,
     defenderPower: 0,
@@ -33,55 +14,48 @@ var fightersObj = {
     fightersArr: [{
         name: "Obi-Wan Kenobi",
         health_point: "120",
-        attack_damage: "15",
+        attack_damage: "21",
         flag: false,
         image: "Obi-Wan-Kenobi.jpg"
     }, {
         name: "Chibi Maul",
         health_point: "210",
-        attack_damage: "90",
+        attack_damage: "25",
         flag: false,
         image: "Chibi-Maul.jpg"
 
     }, {
         name: "Darth Sidious",
         health_point: "150",
-        attack_damage: "50",
+        attack_damage: "17",
         flag: false,
         image: "Darth-Sidious.jpg"
 
     }, {
         name: "Luke Skywalker",
         health_point: "300",
-        attack_damage: "17",
+        attack_damage: "11",
         flag: false,
         image: "Luke-Skywalker.jpg"
     }],
 
-
- //attackBtnFunction 
- attackBtnFunction: function () {
-    
+    //attackBtnFunction 
+    attackBtnFunction: function () {
         if (this.tmpPlayerAP == 0 && this.tmpPlayerHP == 0) {
-            $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vdefender.name + " for " +  fightersObj.vplayer.attack_damage
-            +" damage.</p>");
+            $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vdefender.name + " for " + fightersObj.vplayer.attack_damage
+                + " damage.</p>");
             fightersObj.playerHP = parseInt(fightersObj.vplayer.health_point);
         }
-        
-        $("#vdefenderHP").html("<p class='pContent'>"+ fightersObj.vdefender.name +" attacked You back for " + fightersObj.vdefender.attack_damage+" damage.</p>");
-        
-    
+        $("#vdefenderHP").html("<p class='pContent'>" + fightersObj.vdefender.name + " attacked You back for " + fightersObj.vdefender.attack_damage + " damage.</p>");
         //Initialize the player and defender health points
         fightersObj.defenderHP = parseInt(fightersObj.vdefender.health_point);
-    
         //Update defender button css
         var $defenderBtn = $("<button>");
         $defenderBtn.addClass("btn newBtn pickedDefender");
         $defenderBtn.html("<p>" + fightersObj.vdefender.name + "</p>"
-        + "<p>" + '<a href="#"> <img src="'+fightersObj.imgDir + fightersObj.vdefender.image +'"></a>' + "</p>"
-        + "<p>" + fightersObj.vdefender.health_point + "</p>");
+            + "<p>" + '<a href="#"> <img src="' + fightersObj.imgDir + fightersObj.vdefender.image + '"></a>' + "</p>"
+            + "<p>" + fightersObj.vdefender.health_point + "</p>");
         $("#your-defender").html($defenderBtn);
-        
         //unload all previous click event
         $("#attackId").off("click");
         $("#attackId").on("click", ".attack", function () {
@@ -91,56 +65,46 @@ var fightersObj = {
             }
             else {
                 if (this.tmpPlayerAP > 0 && this.tmpPlayerHP > 0) {
-                    $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vdefender.name + " for " + this.tmpPlayerAP +" damage.</p>");
+                    $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vdefender.name + " for " + this.tmpPlayerAP + " damage.</p>");
                     fightersObj.playerHP = this.tmpPlayerHP;
                 }
                 else {
-                    $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vdefender.name + " for " +  fightersObj.vplayer.attack_damage
-                    +" damage.</p>");
-                    // fightersObj.playerHP = parseInt(fightersObj.vplayer.health_point);
-                    // console.log("Player Health Point1: " + fightersObj.playerHP);
+                    $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vdefender.name + " for " + fightersObj.vplayer.attack_damage
+                        + " damage.</p>");
                 }
-                
-                $("#vdefenderHP").html("<p class='pContent'>"+ fightersObj.vdefender.name +" attacked You back for " + fightersObj.vdefender.attack_damage+" damage.</p>");
-
+                $("#vdefenderHP").html("<p class='pContent'>" + fightersObj.vdefender.name + " attacked You back for " + fightersObj.vdefender.attack_damage + " damage.</p>");
                 //Accumulate player attack power by click
                 fightersObj.defenderPower = parseInt(fightersObj.vdefender.attack_damage);
-                console.log("Defender Power: "+parseInt(fightersObj.vdefender.attack_damage));
                 //Accumulate player attack power by click
                 fightersObj.playerPower += parseInt(fightersObj.vplayer.attack_damage);
-                console.log("Player power "+fightersObj.playerPower);
-    
                 //Deduct defender health point by player attack power
                 fightersObj.defenderHP -= fightersObj.playerPower;
-                console.log("defender health: "+fightersObj.defenderHP);
                 //Deduct player health point by defender attack power
                 fightersObj.playerHP -= fightersObj.defenderPower;
-
-                console.log("Player Health Point2: " + fightersObj.playerHP);
-    
                 //Display updated defender health points
                 var $defenderBtn = $("<button>");
                 $defenderBtn.addClass("btn newBtn pickedDefender");
                 $defenderBtn.html("<p>" + fightersObj.vdefender.name + "</p>"
-                + "<p>" + '<a href="#"> <img src="'+fightersObj.imgDir + fightersObj.vdefender.image +'"></a></p>' + "<p>" + fightersObj.defenderHP + "</p>");
+                    + "<p>" + '<a href="#"> <img src="' + fightersObj.imgDir + fightersObj.vdefender.image + '"></a></p>' + "<p>" + fightersObj.defenderHP + "</p>");
                 $("#your-defender").html($defenderBtn);
-    
+
                 //Display updated player health points
                 var $playerBtn = $("<button>");
                 $playerBtn.addClass("btn newBtn");
                 $playerBtn.html("<p>" + fightersObj.vplayer.name + "</p>"
-                + "<p>" + '<a href="#"> <img src="'+fightersObj.imgDir + fightersObj.vplayer.image +'"></a>' + "</p>"
-                + "<p>" + fightersObj.playerHP + "</p>");
+                    + "<p>" + '<a href="#"> <img src="' + fightersObj.imgDir + fightersObj.vplayer.image + '"></a>' + "</p>"
+                    + "<p>" + fightersObj.playerHP + "</p>");
                 $("#your-player").html($playerBtn);
-    
+
                 //Display updated player power
                 $("#vplayerHP").html("<p class='pContent'>You attacked " + fightersObj.vplayer.name + " for " + fightersObj.playerPower + " damage.</p>");
-    
+
                 if (fightersObj.playerHP <= 0 && fightersObj.defenderHP <= 0) {
                     $(".attack").hide();
                     $(".restart").show();
-                    $("#vplayerHP").html("<h1 class='lost'>Draw... Try Again!!!</h1>");
-                    $("#attackId").on("click", ".restart", function (){
+                    $("#vdefenderHP").html("");
+                    $("#vplayerHP").html("<h1 class='draw'>Draw...<br>Try Again!!!</h1>");
+                    $("#attackId").on("click", ".restart", function () {
                         fightersObj.restartGame();
                     });
                 }
@@ -149,17 +113,14 @@ var fightersObj = {
                     //Record player current health points and attack power
                     fightersObj.tmpPlayerAP = fightersObj.playerPower;
                     fightersObj.tmpPlayerHP = fightersObj.playerHP;
-                    console.log("tmpPlayerAP: "+fightersObj.tmpPlayerAP);
-                    console.log("tmpPlayerHP: "+fightersObj.tmpPlayerHP);
                     $("#your-defender, #vdefenderHP").html("");
                     $("#vplayerHP").html("<p class='pContent'>You have defeated " + fightersObj.vdefender.name + ".</p><p class='pContent'>You can choose to fight another enemy.</p>");
                     //If player have defeated all defenders then show restart button 
                     if (fightersObj.availableDefenders.length == 0) {
                         $(".attack").hide();
                         $(".restart").show();
-                        //show you're winner!
-                        $("#vplayerHP").html("<h1 class='lost'>You Win!!!</h1>");
-                        $("#attackId").on("click", ".restart", function (){
+                        $("#vplayerHP").html("<h1 class='win'>You Win!!!</h1>");
+                        $("#attackId").on("click", ".restart", function () {
                             fightersObj.restartGame();
                         });
                     }
@@ -169,31 +130,24 @@ var fightersObj = {
                     $(".attack").hide();
                     $(".restart").show();
                     $("#vplayerHP").html("<h1 class='lost'>You Loose!!!</h1>");
-                    $("#attackId").on("click", ".restart", function (){
+                    $("#attackId").on("click", ".restart", function () {
                         fightersObj.restartGame();
                     });
                 }
             }
         });
-      
-},
-
-
-    
-
-/*********************** to keep ************************/   
+    },//end of attackBtnFunction
 
     //List all characters for user to pick
     displayCharacters: function () {
         $("#characters").html("<p class='pTitle col-md-2'>Select your player to get started :</p>");
         for (var i = 0; i < this.fightersArr.length; i++) {
-            //Create new div to load individual character
-            var $newBtn = $("<button id='newBtn"+i+"'>");
-            //Add newDiv style
-            $newBtn.addClass("btn newBtn").attr("value",i);
+            //Create new button to load individual character
+            var $newBtn = $("<button id='newBtn" + i + "'>");
+            $newBtn.addClass("btn newBtn").attr("value", i);
             $newBtn.html("<p>" + this.fightersArr[i].name + "</p>"
-                        + "<p>" + '<a href="#"> <img src="'+this.imgDir + this.fightersArr[i].image +'"></a>' + "</p>"
-                        + "<p>" + this.fightersArr[i].health_point + "</p>");
+                + "<p>" + '<a href="#"> <img src="' + this.imgDir + this.fightersArr[i].image + '"></a>' + "</p>"
+                + "<p>" + this.fightersArr[i].health_point + "</p>");
             $("#characters").append($newBtn);
         }
         this.pickPlayer();
@@ -203,14 +157,14 @@ var fightersObj = {
     pickPlayer: function () {
         $("#player-opponent, #attackId").hide();
         //Pick a player
-        $("#characters").on("click",".btn", function (){
+        $("#characters").on("click", ".btn", function () {
             var $pickaPlayer = $(this).val();
             fightersObj.fightersArr[$pickaPlayer].flag = true;
-            var $newBtn = $("<button>"); 
+            var $newBtn = $("<button>");
             $newBtn.addClass("btn newBtn");
             $newBtn.html("<p>" + fightersObj.fightersArr[$pickaPlayer].name + "</p>"
-            + "<p>" + '<a href="#"> <img src="'+fightersObj.imgDir + fightersObj.fightersArr[$pickaPlayer].image +'"></a>' + "</p>"
-            + "<p>" + fightersObj.fightersArr[$pickaPlayer].health_point + "</p>");
+                + "<p>" + '<a href="#"> <img src="' + fightersObj.imgDir + fightersObj.fightersArr[$pickaPlayer].image + '"></a>' + "</p>"
+                + "<p>" + fightersObj.fightersArr[$pickaPlayer].health_point + "</p>");
             $("#your-player").html($newBtn);
             $("#characters").html("");
             $("#player-opponent").show();
@@ -227,22 +181,20 @@ var fightersObj = {
             if (!dArray[l].flag) {
                 fightersObj.availableDefenders.push(dArray[l]);
             }
-        } 
+        }
         dArray = [];
         this.displayDefenders(fightersObj.availableDefenders);
-        console.log(fightersObj.availableDefenders);
     }, //end of updateDefenders
-
 
     //displayDefenders function
     displayDefenders: function (defendersList) {
         $("#your-defenders").html("<p class='pTitle'>Pick an Enemy to attack :</p>");
         for (var i = 0; i < defendersList.length; i++) {
-            var $newBtn = $("<button id='newBtn"+i+"'>");
-            $newBtn.addClass("btn newBtn availDefenders").attr("value",i);
+            var $newBtn = $("<button id='newBtn" + i + "'>");
+            $newBtn.addClass("btn newBtn availDefenders").attr("value", i);
             $newBtn.html("<p>" + defendersList[i].name + "</p>"
-                        + "<p>" + '<a href="#"> <img src="'+this.imgDir + defendersList[i].image +'"></a>' + "</p>"
-                        + "<p>" + defendersList[i].health_point + "</p>");
+                + "<p>" + '<a href="#"> <img src="' + this.imgDir + defendersList[i].image + '"></a>' + "</p>"
+                + "<p>" + defendersList[i].health_point + "</p>");
             $("#your-defenders").append($newBtn);
         }
         defendersList = [];
@@ -251,7 +203,6 @@ var fightersObj = {
 
     //Function to pick defender
     pickDefender: function () {
-        //Pick a defender
         $("#your-defenders").on("click", ".btn", function () {
             if ($("#your-defender").html() == "") {
                 fightersObj.vdefender = null;
@@ -260,17 +211,13 @@ var fightersObj = {
                 var $newBtn = $("<button>");
                 $newBtn.addClass("btn newBtn");
                 $newBtn.html("<p>" + fightersObj.availableDefenders[$pickaDefender].name + "</p>"
-                + "<p>" + '<a href="#"> <img src="'+fightersObj.imgDir + fightersObj.availableDefenders[$pickaDefender].image +'"></a>' + "</p>"
-                + "<p>" + fightersObj.availableDefenders[$pickaDefender].health_point + "</p>");
+                    + "<p>" + '<a href="#"> <img src="' + fightersObj.imgDir + fightersObj.availableDefenders[$pickaDefender].image + '"></a>' + "</p>"
+                    + "<p>" + fightersObj.availableDefenders[$pickaDefender].health_point + "</p>");
                 $("#your-defender").html($newBtn);
-
                 $("#your-defenders").html("");
-
                 $("#attackId").show();
                 fightersObj.vdefender = fightersObj.availableDefenders[$pickaDefender];
                 fightersObj.updateDefenders(fightersObj.availableDefenders);
-                //Call attack function
-                //fightersObj.attackBtn();
                 if (fightersObj.availableDefenders.length == 0) {
                     $("#your-defenders").html("");
                 }
@@ -289,11 +236,7 @@ var fightersObj = {
         fightersObj.defenderHP = 0;
         fightersObj.tmpPlayerHP = 0;
         fightersObj.tmpPlayerAP = 0;
-        
         $("#your-defenders, #your-defender, #your-player").html("");
-        
-        // $("#your-defender").html("");
-        // $("#your-player").html("");
         fightersObj.displayCharacters();
         for (var i = 0; i < fightersObj.fightersArr.length; i++) {
             fightersObj.fightersArr[i].flag = false;
@@ -301,13 +244,5 @@ var fightersObj = {
         $(".attack").show();
         $(".restart").hide();
     }//end of restartGame
-
 }//end of object bracket
-
 fightersObj.displayCharacters();
-
-
-
-
-
-
